@@ -17,8 +17,6 @@
 
 Runtime 연동은 **Tile 데이터의 로드 및 렌더링 단계까지 구현**했으며, Terrain / Decoration과 일부 객체 기능은 Tool에 구현된 이후 Runtime까지 확장되지 않은 상태입니다.
 
-> [Tool 전체 화면 이미지 추가 예정]
-
 ---
 
 ## 2. 개발 환경
@@ -119,8 +117,6 @@ Tool의 UI에서 변경한 Scale, Flip, Resource 정보 등의 편집 값은 `CT
 
 MFC 컨트롤만 사용하는 형태에서 벗어나 **MFC UI와 Direct3D9 렌더링 화면을 하나의 편집 프로그램 안에서 함께 운용하는 구조**를 구현했습니다.
 
-> [MFC Tool UI 이미지 추가 예정]
-
 ---
 
 ## 4.2 Tile Picking 기반 Map Editing
@@ -167,8 +163,6 @@ Selected Tile
 ### 결과
 
 화면에 렌더링된 맵 위에서 사용자가 직접 Tile과 Object를 선택하고 수정할 수 있는 **인터랙티브 Map Editing 기능**을 구현했습니다.
-
-> [Tile 편집 GIF 추가 예정]
 
 ---
 
@@ -346,8 +340,6 @@ Binary Tile Data
 현재 소스 기준으로 Editor의 Tile 저장 경로는 `Tile.dat`, Runtime의 테스트 로드 경로는 `test4.dat`로 남아 있어 최종 파일 경로까지 통합된 상태는 아닙니다.
 
 다만 Editor에서 저장하는 `TILE` 구조와 Runtime에서 읽는 `TILE` 구조를 동일한 방식으로 사용하여 **Editor 데이터가 별도의 실행 프로그램에서 다시 사용될 수 있는 기본적인 데이터 파이프라인**을 구성했습니다.
-
-> [Editor / Runtime 결과 비교 이미지 추가 예정]
 
 ---
 
@@ -531,17 +523,3 @@ Runtime Load
 
 현재 관점에서는 데이터 규격이나 메모리 관리 등 개선할 부분도 확인할 수 있지만, 이후 여러 프로젝트에서 편집 Tool과 데이터 기반 구조를 설계하는 기초 경험이 되었습니다.
 
----
-
-# 10. 실행 화면
-
-> 이미지 및 실행 영상은 추후 추가 예정입니다.
-
-추가 예정 자료:
-
-* MFC Editor 전체 화면
-* Tile / Terrain / Decoration 편집 과정
-* Resource Path Tool
-* Mini View
-* Editor 편집 결과
-* Runtime Tile Rendering 결과
