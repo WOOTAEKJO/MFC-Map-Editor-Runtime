@@ -68,7 +68,6 @@ void CFileInfo::DirInfoExtration(const wstring& wstrPath, list<IMGPATH*>& rPathL
 			lstrcpy(szPathBuf, Find.GetFilePath().GetString());
 			PathRemoveFileSpec(szPathBuf);
 
-			// L"D:\\유준환\\139기\\Frame139\\Texture\\Stage\\Effect\\BossMultiAttack"
 			pImgPath->iCount = DirFileCount(szPathBuf);
 
 			// GetFileTitle : 파일 이름만 얻어오는 함수
@@ -82,11 +81,9 @@ void CFileInfo::DirInfoExtration(const wstring& wstrPath, list<IMGPATH*>& rPathL
 			TCHAR	szBuf[MAX_PATH] = L"";
 			lstrcpy(szBuf, Find.GetFilePath().GetString());
 			PathRemoveFileSpec(szBuf);
-			// L"D:\\유준환\\139기\\Frame139\\Texture\\Stage\\Effect\\BossMultiAttack"
 
 			// PathCombine(1, 2, 3) : 2에 3을 이어붙여 1에 저장, 2와 3사이에 \\가 자동으로 삽입된채 1에 저장
 			PathCombine(szBuf, szBuf, wstrTextureName.c_str());
-			// L"D:\\유준환\\139기\\Frame139\\Texture\\Stage\\Effect\\BossMultiAttack\\BossMultiAttack%d.png"
 			pImgPath->wstrPath = ConvertRelativePath(szBuf); //상대 경로로 바꿔줌
 			// L"..\\Texture\\Stage\\Effect\\BossMultiAttack\\BossMultiAttack%d.png"
 
