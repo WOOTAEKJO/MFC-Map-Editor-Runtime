@@ -333,7 +333,7 @@ src/
 
 ### Editor
 
-**`CMainFrame` / `CToolView`**
+**[`MainFrm`](src/Tool/MainFrame/MainFrm.cpp) / `CToolView`**
 
 * Split View 구성
 * Direct3D9 Rendering View
