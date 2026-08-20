@@ -2,7 +2,7 @@
 
 MFC 기반으로 구현한 **2D Map Editor와 WinAPI / Direct3D9 기반 Runtime 연동 프로젝트**입니다.
 
-맵 데이터를 코드에서 직접 작성하는 대신 Editor에서 Tile과 Object를 배치하고 파일로 저장한 뒤, 별도의 Runtime에서 해당 데이터를 로드하여 사용하는 구조를 구현했습니다.
+맵 데이터를 코드에서 직접 작성하는 대신 Editor에서 Tile과 Object를 배치하고 파일로 저장한 뒤, 별도의 Runtime에서 해당 데이터를 로드하여 사용하는 구조를 구성했습니다.
 
 > **MFC Editor → Map Data → Binary Save → Runtime Load → Rendering**
 
@@ -22,7 +22,8 @@ MFC 기반으로 구현한 **2D Map Editor와 WinAPI / Direct3D9 기반 Runtime 
 
 | 항목           | 내용                              |
 | ------------ | ------------------------------- |
-| 프로젝트 형태      | 개인 학습 프로젝트                      |
+| 프로젝트 형태      | 2인 팀 학습 프로젝트                    |
+| 개발 방식        | 전반 기능 공동 개발                     |
 | Language     | C++                             |
 | Editor       | MFC                             |
 | Runtime      | WinAPI                          |
@@ -31,7 +32,9 @@ MFC 기반으로 구현한 **2D Map Editor와 WinAPI / Direct3D9 기반 Runtime 
 | File API     | Win32 File API                  |
 | IDE          | Visual Studio                   |
 
-### 구현 범위
+> 오래된 학습 프로젝트로 기능별 세부 담당 기록이 남아 있지 않아, 특정 기능을 개인 단독 구현으로 구분하지 않고 프로젝트 전체 구현 범위를 기준으로 정리했습니다.
+
+### 프로젝트 구현 범위
 
 **Editor**
 
@@ -113,7 +116,7 @@ CMainFrame
 
 MFC의 `CScrollView`, `CFormView`, `CDialog`, `CSplitterWnd`를 이용하여 맵 편집 UI를 구성했습니다.
 
-Editor에서는 다음 데이터를 구분하여 관리합니다.
+Editor에서는 맵 데이터를 다음과 같이 구분하여 관리합니다.
 
 ```text
 CTerrain
@@ -134,13 +137,13 @@ CTerrain
 * Tile 표시 / 숨김
 * 선택한 Resource의 배치 위치 Preview
 
-MFC Control에서 입력한 값을 실제 렌더링 View에 전달하여 **UI를 통한 데이터 편집 결과가 즉시 화면에 반영되도록 구현**했습니다.
+MFC Control에서 입력한 값을 실제 렌더링 View에 전달하여 **UI를 통한 데이터 편집 결과가 즉시 화면에 반영되는 구조**로 구성했습니다.
 
 ---
 
 ### 3.2 Tile Picking
 
-마우스로 직접 Tile을 선택하고 편집하기 위해 마름모 형태의 Tile 영역에 대한 Picking을 구현했습니다.
+마우스로 직접 Tile을 선택하고 편집하기 위해 마름모 형태의 Tile 영역에 대한 Picking 기능을 구성했습니다.
 
 ```text
 Mouse Position
@@ -158,7 +161,7 @@ Selected Tile
 
 Tile의 네 꼭짓점을 기준으로 각 변의 방향 및 법선 벡터를 계산하고, 마우스 위치와의 내적을 통해 Tile 내부 여부를 판정합니다.
 
-Picking 결과와 현재 Editor Mode를 조합하여 동일한 입력으로 다음 작업을 처리합니다.
+Picking 결과와 현재 Editor Mode에 따라 다음 작업을 처리합니다.
 
 * Tile 변경
 * Tile 초기화
@@ -171,7 +174,7 @@ Picking 결과와 현재 Editor Mode를 조합하여 동일한 입력으로 다�
 
 ### 3.3 Resource Path 관리
 
-Resource가 증가할 때 이미지 경로를 코드에 개별 등록하지 않도록 별도의 Resource Path Tool을 구현했습니다.
+Resource가 증가할 때 이미지 경로를 코드에 개별 등록하지 않도록 별도의 Resource Path 관리 기능을 구성했습니다.
 
 Resource Directory를 Drag & Drop하면 `CFileInfo`가 디렉터리를 재귀 탐색하여 다음 정보를 생성합니다.
 
@@ -188,7 +191,7 @@ Relative Path
 ObjKey | StateKey | Count | RelativePath
 ```
 
-이 데이터를 `CTextureMgr`가 읽어 Texture Resource를 등록하도록 구성했습니다.
+이 데이터를 `CTextureMgr`가 읽어 Texture Resource를 등록합니다.
 
 ```text
 Resource Directory
@@ -202,7 +205,7 @@ CTextureMgr
 Texture Resource
 ```
 
-Editor와 Runtime이 동일한 형식의 `ImgPath.txt`를 사용하도록 하여 **리소스 정보를 파일 데이터로 관리하는 구조**를 구성했습니다.
+Editor와 Runtime이 동일한 형식의 `ImgPath.txt`를 사용하여 **리소스 정보를 파일 데이터로 관리하고 공유하는 구조**로 구성했습니다.
 
 ---
 
@@ -219,7 +222,7 @@ ReadFile()
 CloseHandle()
 ```
 
-Editor에서는 다음 데이터를 각각 저장할 수 있도록 구현했습니다.
+Editor에서는 다음 데이터를 각각 저장할 수 있도록 구성했습니다.
 
 ```text
 Tile
@@ -247,7 +250,7 @@ Direct3D9 Rendering
 
 Runtime의 `CMyTerrain`은 저장된 `TILE` 데이터를 읽고 Position과 Texture ID를 이용해 화면을 구성합니다.
 
-이를 통해 **데이터를 제작하는 Editor와 데이터를 실제 실행에 사용하는 Runtime을 분리한 기본적인 데이터 파이프라인**을 구현했습니다.
+이를 통해 **데이터를 제작하는 Editor와 데이터를 실행에 사용하는 Runtime을 분리한 기본적인 데이터 파이프라인**을 구성했습니다.
 
 ---
 
@@ -281,7 +284,7 @@ Scroll Position + Window Size
      Direct3D9 Rendering
 ```
 
-현재 View에서 필요한 범위의 Tile만 조회하여 렌더링하도록 구성했습니다.
+현재 View에서 필요한 범위의 Tile을 조회하여 렌더링하도록 구성했습니다.
 
 ---
 
@@ -307,70 +310,47 @@ Scroll Position + Window Size
 
 ## 5. Source Code
 
-> 이 Repository의 src 디렉터리는 전체 원본 프로젝트가 아니라
-> 포트폴리오에서 설명한 구조와 핵심 구현을 확인할 수 있도록 선별한 코드이며 단독 빌드를 목적으로 하지 않습니다.
+이 Repository의 `src` 디렉터리는 **2인 공동 프로젝트의 전체 원본 소스가 아니라, 포트폴리오에서 설명한 구조와 주요 구현을 확인할 수 있도록 선별한 코드**입니다.
 
-Repository는 Editor와 Runtime을 분리하여 구성합니다.
-
-```text
-src/
-├─ Tool/
-│  ├─ MainFrame
-│  ├─ ToolView
-│  ├─ MyForm
-│  ├─ MapTool
-│  ├─ PathFind
-│  ├─ Terrain
-│  ├─ Texture
-│  └─ Device
-│
-└─ Client/
-   ├─ MainGame
-   ├─ Scene
-   ├─ ObjManager
-   ├─ MyTerrain
-   ├─ Texture
-   ├─ TimeManager
-   └─ Device
-```
+프로젝트 기능별 세부 담당 기록이 남아 있지 않기 때문에 Repository에서도 특정 파일이나 기능을 개인 단독 구현으로 구분하지 않았습니다.
 
 ### Editor
 
-**[`MainFrm`](src/Tool/MainFrame/MainFrm.cpp) / [`ToolView`](src/Tool/View/ToolView.cpp)**
+**[`MainFrame`](src/Tool/MainFrame/MainFrm.cpp) / [`ToolView`](src/Tool/View/ToolView.cpp)**
 
-* Split View 구성
-* Direct3D9 Rendering View
-* Mouse Input과 Editor 기능 연결
+- Split View 구성
+- Direct3D9 Rendering View
+- Mouse Input과 Editor 기능 연결
 
 **[`MapTool`](src/Tool/MapEditor/MapTool.cpp) / [`Terrain`](src/Tool/MapEditor/Terrain.cpp)**
 
-* Tile / Terrain / Decoration 데이터 편집
-* Object Scale / Flip / 기준점 관리
-* Binary Data 저장 / 로드
+- Tile / Terrain / Decoration 데이터 편집
+- Object Scale / Flip / 기준점 관리
+- Binary Data 저장 / 로드
 
 **[`PathFind`](src/Tool/Resource/PathFind.cpp) / [`FileInfo`](src/Tool/Resource/FileInfo.cpp)**
 
-* Drag & Drop Resource 입력
-* Directory 재귀 탐색
-* 상대 경로 변환
-* Resource Path Data 생성
+- Drag & Drop Resource 입력
+- Directory 재귀 탐색
+- 상대 경로 변환
+- Resource Path Data 생성
 
 ### Runtime
 
 **[`MainGame`](src/Client/Core/MainGame.cpp)**
 
-* Update / Late Update / Render Main Loop
+- Update / Late Update / Render Main Loop
 
-**[`SceneMgr`](src/Client/Scene/ScnenMgr.cpp) / [`ObjMgr`](src/Client/Object/ObjMgr.cpp)**
+**[`SceneMgr`](src/Client/Scene/SceneMgr.cpp) / [`ObjMgr`](src/Client/Object/ObjMgr.cpp)**
 
-* Scene 및 Runtime Object 관리 구조
+- Scene 및 Runtime Object 관리 구조
 
-**[`CMyTerrain`](src/Client/Object/MyTerrain.cpp)**
+**[`MyTerrain`](src/Client/Object/MyTerrain.cpp)**
 
-* Tile Binary Data Load
-* Scroll 처리
-* View 영역 계산
-* Direct3D9 Tile Rendering
+- Tile Binary Data Load
+- Scroll 처리
+- View 영역 계산
+- Direct3D9 Tile Rendering
 
 ---
 
