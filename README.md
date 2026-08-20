@@ -32,7 +32,6 @@ MFC 기반으로 구현한 **2D Map Editor와 WinAPI / Direct3D9 기반 Runtime 
 | File API     | Win32 File API                  |
 | IDE          | Visual Studio                   |
 
-> 오래된 학습 프로젝트로 기능별 세부 담당 기록이 남아 있지 않아, 특정 기능을 개인 단독 구현으로 구분하지 않고 프로젝트 전체 구현 범위를 기준으로 정리했습니다.
 
 ### 프로젝트 구현 범위
 
