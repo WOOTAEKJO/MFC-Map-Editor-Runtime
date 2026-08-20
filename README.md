@@ -333,19 +333,19 @@ src/
 
 ### Editor
 
-**[`MainFrm`](src/Tool/MainFrame/MainFrm.cpp) / `CToolView`**
+**[`MainFrm`](src/Tool/MainFrame/MainFrm.cpp) / [`ToolView`](src/Tool/View/ToolView.cpp)**
 
 * Split View 구성
 * Direct3D9 Rendering View
 * Mouse Input과 Editor 기능 연결
 
-**`CMapTool` / `CTerrain`**
+**[`MapTool`](src/Tool/MapEditor/MapTool.cpp) / [`Terrain`](src/Tool/MapEditor/Terrain.cpp)**
 
 * Tile / Terrain / Decoration 데이터 편집
 * Object Scale / Flip / 기준점 관리
 * Binary Data 저장 / 로드
 
-**`CPathFind` / `CFileInfo`**
+**[`PathFind`](src/Tool/Resource/PathFind.cpp) / [`FileInfo`](src/Tool/Resource/FileInfo.cpp)**
 
 * Drag & Drop Resource 입력
 * Directory 재귀 탐색
@@ -354,15 +354,15 @@ src/
 
 ### Runtime
 
-**`CMainGame`**
+**[`MainGame`](src/Client/Core/MainGame.cpp)**
 
 * Update / Late Update / Render Main Loop
 
-**`CSceneMgr` / `CObjMgr`**
+**[`SceneMgr`](src/Client/Scene/ScnenMgr.cpp) / [`ObjMgr`](src/Client/Object/ObjMgr.cpp)**
 
 * Scene 및 Runtime Object 관리 구조
 
-**`CMyTerrain`**
+**[`CMyTerrain`](src/Client/Object/MyTerrain.cpp)**
 
 * Tile Binary Data Load
 * Scroll 처리
