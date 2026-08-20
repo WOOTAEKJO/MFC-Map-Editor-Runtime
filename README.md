@@ -307,6 +307,9 @@ Scroll Position + Window Size
 
 ## 5. Source Code
 
+> 이 Repository의 src 디렉터리는 전체 원본 프로젝트가 아니라
+> 포트폴리오에서 설명한 구조와 핵심 구현을 확인할 수 있도록 선별한 코드이며 단독 빌드를 목적으로 하지 않습니다.
+
 Repository는 Editor와 Runtime을 분리하여 구성합니다.
 
 ```text
